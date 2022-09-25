@@ -9,11 +9,15 @@ struct Tile {
 class Board {
     public:
     Board(int rows, int cols, int mines);
+    ~Board();
     void generateMines(int row, int col);
     void dig(int row, int col);
     void flag(int row, int col);
+    void action(int action, int row, int col);
     void printBoard();
     int** getOutput();
+    int getRows();
+    int getCols();
     int gameContinue();
     
     private:

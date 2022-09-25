@@ -30,6 +30,17 @@ dead_(false), rows_(rows), cols_(cols), mines_(mines), digs_(0)
     }
 }
 
+Board::~Board() {
+    //currently causing memory unknown memory errors, delete being called on pointer that is not allocated
+
+    // for (int i = 0; i < rows_; i++) {
+    //     delete [] field_[i];
+    //     delete [] output_[i];
+    // }
+    // delete [] field_;
+    // delete [] output_;
+}
+
 void Board::generateMines(int row, int col) {
     int i = 0;
     while (i < mines_) {
@@ -54,7 +65,7 @@ void Board::generateMines(int row, int col) {
 }
 
 void Board::dig(int row, int col) {
-    if (row < 0 || row >= rows_ || col < 0 || col >= cols_ || (output_[row][col] >= 0 && output_[row][col] != 10));
+    if (row < 0 || row >= rows_ || col < 0 || col >= cols_ || (output_[row][col] != -1)) {}
     else if (field_[row][col].isMine_) {
         dead_ = true;
     }
@@ -77,13 +88,18 @@ void Board::dig(int row, int col) {
 
 void Board::flag(int row, int col) {
     if (row < 0 || row >= rows_ || col < 0 || col >= cols_ || (output_[row][col] > -1 && output_[row][col] != 10)) return;
-    else if (output_[row][col] == 10) {
-        output_[row][col] = -1;
-    }
+    // else if (output_[row][col] == 10) {
+    //     output_[row][col] = -1;
+    // }
     else {
         output_[row][col] = 10;
     }
     return;
+}
+
+void Board::action(int action, int row, int col) {
+    if (!action) dig(row, col);
+    else flag(row, col);
 }
 
 void Board::printBoard() {
@@ -117,26 +133,18 @@ void Board::printBoard() {
     for (int i = 0; i < rows_ + 1; ++i) {
         std::cout << "--";
     }
-    std::cout << std::endl << digs_<< std::endl ;
-    
-    // for (int i = 0; i < rows_; ++i) {
-    //     for (int j = 0; j < cols_; ++j) {
-    //         std::cout << field_[i][j].state_ << " ";
-    //     }
-    //     std::cout <<std::endl;
-    // }
-    // std::cout << std::endl;
-    // for (int i = 0; i < rows_; ++i) {
-    //     for (int j = 0; j < cols_; ++j) {
-    //         std::cout << field_[i][j].isMine_ << " ";
-    //     }
-    //     std::cout <<std::endl;
-    // }
-    
 }
 
 int** Board::getOutput() {
     return output_;
+}
+
+int Board::getRows() {
+    return rows_;
+}
+
+int Board::getCols() {
+    return cols_;
 }
 
 bool Board::isMine(int row, int col) {
