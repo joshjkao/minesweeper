@@ -4,7 +4,7 @@
 #include "solver.h"
 using namespace std;
 
-void playergame(Board playerboard) {
+void playergame(Board& playerboard) {
     playerboard.printBoard();
     int x_in;
     int y_in;
@@ -34,7 +34,7 @@ void playergame(Board playerboard) {
     return;
 }
 
-void solvergame(Board test) {
+void solvergame(Board& test) {
     test.printBoard();
     int x_in;
     int y_in;

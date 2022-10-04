@@ -12,6 +12,10 @@ isMine_(false), state_(0)
 
 }
 
+Board::Board(Board const& other) { //debug: should never be called
+    std::cout << "copy constructor called";
+}
+
 Board::Board(int rows, int cols, int mines): 
 dead_(false), rows_(rows), cols_(cols), mines_(mines), digs_(0)
 {
@@ -31,14 +35,12 @@ dead_(false), rows_(rows), cols_(cols), mines_(mines), digs_(0)
 }
 
 Board::~Board() {
-    //currently causing memory unknown memory errors, delete being called on pointer that is not allocated
-
-    // for (int i = 0; i < rows_; i++) {
-    //     delete [] field_[i];
-    //     delete [] output_[i];
-    // }
-    // delete [] field_;
-    // delete [] output_;
+    for (int i = 0; i < rows_; i++) {
+        delete [] field_[i];
+        delete [] output_[i];
+    }
+    delete [] field_;
+    delete [] output_;
 }
 
 void Board::generateMines(int row, int col) {

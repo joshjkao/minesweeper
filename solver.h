@@ -22,7 +22,7 @@ struct isOpen {
 
 class Solver {
     public:
-    Solver(Board in);
+    Solver(Board& in);
     ~Solver();
     virtual void iterate() = 0;
     std::set<std::vector<int> > getInstructions();
@@ -38,7 +38,7 @@ class Solver {
 
 class BasicSolver: public Solver {
     public:
-    BasicSolver(Board in);
+    BasicSolver(Board& in);
     ~BasicSolver();
     void iterate();
 };

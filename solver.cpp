@@ -1,7 +1,7 @@
 #include "solver.h"
 #include <iostream>
 
-Solver::Solver(Board in):
+Solver::Solver(Board& in):
 rows_(in.getRows()), cols_(in.getCols()), input_(in.getOutput())
 {
     
@@ -24,7 +24,7 @@ std::set<std::vector<int> > Solver::getInstructions() {
     return instructions_;
 }
 
-BasicSolver::BasicSolver(Board in):
+BasicSolver::BasicSolver(Board& in):
     Solver(in)
 {
 
